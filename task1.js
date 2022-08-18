@@ -20,8 +20,10 @@ let str = `Старший братец ПОНЕДЕЛЬНИК –
 не выходит на работу.
 
 В гости ходит ВОСКРЕСЕНЬЕ,
-очень любит угощенье`;
-
-
-
-console.log (str.replace(/ПОНЕДЕЛЬНИК/g , `MONDAY`).replace(/ВТОРНИК/g , `TUESDAY`).replace(/СРЕДА/g , `WEDNESDAY`).replace(/ЧЕТВЕРГ/g , `THURDAY`).replace(/ПЯТНИЦА/g , `FRIDAY`).replace(/СУББОТА/g , `SATURDAY`).replace(/ВОСКРЕСЕНЬЕ/g , `SUNDAY`))
+очень любит угощенье`
+ 
+function strTranslate () {
+    str = str.replace(/ПОНЕДЕЛЬНИК/g , `MONDAY`).replace(/ВТОРНИК/g , `TUESDAY`).replace(/СРЕДА/g , `WEDNESDAY`).replace(/ЧЕТВЕРГ/g , `THURDAY`).replace(/ПЯТНИЦА/g , `FRIDAY`).replace(/СУББОТА/g , `SATURDAY`).replace(/ВОСКРЕСЕНЬЕ/g , `SUNDAY`)
+}
+strTranslate ()
+console.log (str)

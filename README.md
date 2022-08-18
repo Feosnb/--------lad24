@@ -1,1 +1,1 @@
-Completed test task for LAD24 internature.
+Test task for LAD

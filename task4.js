@@ -1,8 +1,7 @@
-let mage = {
+const mage = {
     maxHealth: 10,
     name: "Евстафий",
-moves: [
-
+    moves: [
     {
         "name": "Удар боевым кадилом",
         "physicalDmg": 2,
@@ -43,11 +42,11 @@ const monster = {
     moves: [
         {
             "name": "Удар когтистой лапой",
-            "physicalDmg": 3, // физический урон
-            "magicDmg": 0,    // магический урон
-            "physicArmorPercents": 20, // физическая броня
-            "magicArmorPercents": 20,  // магическая броня
-            "cooldown": 0     // ходов на восстановление
+            "physicalDmg": 3, 
+            "magicDmg": 0,    
+            "physicArmorPercents": 20, 
+            "magicArmorPercents": 20,  
+            "cooldown": 0     
         },
         {
             "name": "Огненное дыхание",
@@ -95,8 +94,12 @@ function onCooldown (monsterSkill, mageSkill) {
 }
 
 function action (monsterAct, mageAct) {
-    let monsterReducedAttack = ((monster.moves[monsterAct].physicalDmg - monster.moves[monsterAct].physicalDmg * mage.moves[mageAct].physicArmorPercents / 100) + (monster.moves[monsterAct].magicDmg - monster.moves[monsterAct].magicDmg * mage.moves[mageAct].magicArmorPercents / 100))
-    let mageReducedAttack = ((mage.moves[mageAct].physicalDmg - mage.moves[mageAct].physicalDmg * monster.moves[monsterAct].physicArmorPercents / 100) + (mage.moves[mageAct].magicDmg - mage.moves[mageAct].magicDmg * monster.moves[monsterAct].magicArmorPercents / 100))
+    let monsterMove = monster.moves[monsterAct]
+    let mageMove = mage.moves[mageAct]
+    let monsterReducer = monsterMove.physicArmorPercents / 100
+    let mageReducer = mageMove.physicArmorPercents / 100
+    let monsterReducedAttack = (monsterMove.physicalDmg - monsterMove.physicalDmg * mageReducer) + (monsterMove.magicDmg - monsterMove.magicDmg * mageReducer)
+    let mageReducedAttack = (mageMove.physicalDmg - mageMove.physicalDmg * monsterReducer) + (mageMove.magicDmg - mageMove.magicDmg * monsterReducer)
     mageHP -= monsterReducedAttack
     monsterHP -= mageReducedAttack
     if (mageHP<=0) {
@@ -107,14 +110,15 @@ function action (monsterAct, mageAct) {
    }
 } 
 
-function fight(){
+function fight() {
  for (i = 0; mageHP > 0 &&  monsterHP > 0; i++ ) { 
     let monsterMove = Math.round(Math.random()* 2)
     let mageMove = Number(prompt(`Лютый собирается применить способность ${monster.moves[monsterMove].name} , выберите способность который вы ему ответите: 
     0-Удар боевым кадилом (кулдаун 0)
     1-Вертушка левой пяткой (кулдаун ${cooldowns['Вертушка левой пяткой']})
     2-Каноничный фаербол (кулдаун ${cooldowns['Каноничный фаербол']}) 
-    3-Магический блок (кулдаун ${cooldowns['Магический блок']}) `)) 
+    3-Магический блок (кулдаун ${cooldowns['Магический блок']}) 
+    Монстр применяет способность первым`)) 
     if (mageMove> 3) {
         alert (`Неверно введен номер способности, пожалуйста выберете от 0 до 3`)
         continue
@@ -128,6 +132,7 @@ function fight(){
     alert(`Ваше здоровье: ${mageHP}
 Здоровье Лютого: ${monsterHP}
 Конец хода номер ${i+1}`)
+ }
 }
-}
+
 fight()
